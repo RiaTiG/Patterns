@@ -6,6 +6,7 @@ fun main() {
     val tom = Student("Johnson", "Tom", "William", _phone = "+79891214092");
     val list: MutableList<Student> = mutableListOf(bob, anna, tom)
     bob.validate()
+    bob.set_contact(_telegram = "@RiaTig")
     for (student in list) {
         student.getInfo()
     }

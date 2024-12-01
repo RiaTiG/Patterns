@@ -71,6 +71,16 @@ class Student {
             if (checkGit(value))
                 field = value
         }
+
+    fun set_contact(_email: String?=null, _phone: String?=null, _telegram: String?=null){
+        if(checkEmail(_email))
+            this.email = _email
+        if(checkPhone(_phone))
+            this.phone = _phone
+        if(checkTelegram(_telegram))
+            this.telegram = _telegram
+    }
+
     fun validate():Boolean{
         if(checkGit(this.git)&&(checkPhone(this.phone) || checkEmail(this.email)|| checkTelegram(this.telegram))){
             println("Валидация пройдена")
@@ -80,6 +90,7 @@ class Student {
             println("Валидация не пройдена")
         return false
     }
+
     companion object{
         var count=0
         val phoneReg = Regex("""^\+7\d{10}$|^8\d{10}$""")
