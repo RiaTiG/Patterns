@@ -59,7 +59,6 @@ class Student(id: Int, lastName: String, firstName: String, patronymic: String) 
         this.git = Optional.ofNullable(git)
     }
 
-
     override fun toString(): String {
         return "Student{" +
                 "ID=" + id +
