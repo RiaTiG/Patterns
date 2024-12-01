@@ -71,28 +71,38 @@ class Student {
             if (checkGit(value))
                 field = value
         }
-
+    fun validate():Boolean{
+        if(checkGit(this.git)&&(checkPhone(this.phone) || checkEmail(this.email)|| checkTelegram(this.telegram))){
+            println("Валидация пройдена")
+            return true
+        }
+        else
+            println("Валидация не пройдена")
+        return false
+    }
     companion object{
         var count=0
         val phoneReg = Regex("""^\+7\d{10}$|^8\d{10}$""")
         val emailReg = Regex("""^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$""")
         val nameReg = Regex("""^[А-Яа-яA-Za-z-]+$""")
         val telegramReg = Regex("""^@[A-Za-z0-9_]{5,}$""")
-        val gitReg = Regex("""^(https:/|http:)?(www\.)?github\.com[A-Za-z0-9_.-]+?$""")
+        val gitReg = Regex("""^(https:\/\/|http:\/\/)?(www\.)?github\.com\/[A-Za-z0-9_.-]+\/?$""")
 
         fun checkPhone(value: String?):Boolean {
-            if(phoneReg.matches(value.toString()))
+            if(phoneReg.matches(value.toString())) {
                 return true
-            else
-                println("Неправильный формат номера телефона")
-            return false
+            }else {
+                if (value != null)
+                    println("Неправильный формат номера телефона")
+                return false
+            }
         }
 
         fun checkFio(value: String):Boolean {
             if (nameReg.matches(value)){
                 return true
             }else {
-                println("Неправильный формат ФИО")
+                    println("Неправильный формат ФИО")
                 return false
             }
         }
@@ -101,7 +111,8 @@ class Student {
             return if (telegramReg.matches(value.toString())) {
                 true
             } else {
-                println("Неправильный формат Telegram, имя пользователя должно начинаться с @")
+                if (value != null)
+                    println("Неправильный формат Telegram")
                 false
             }
         }
@@ -110,7 +121,8 @@ class Student {
             return if (emailReg.matches(value.toString())) {
                 true
             } else {
-                println("Неправильный формат Email")
+                if(value != null)
+                        println("Неправильный формат Email")
                 false
             }
         }
@@ -119,7 +131,8 @@ class Student {
             return if (gitReg.matches(value.toString())) {
                 true
             } else {
-                println("Неправильный формат GitHub URL")
+                if (value != null)
+                    println("Неправильный формат GitHub URL")
                 false
             }
         }
@@ -159,7 +172,7 @@ class Student {
     }
 
     fun getInfo() {
-        print("ID: $id, Фамилия: $lastName, Имя: $firstName, Отчество: $surname")
+        print("Id: $id, Фамилия: $lastName, Имя: $firstName, Отчество: $surname")
         if (phone != null)
             print(", Телефон: $phone")
         if (telegram != null)
