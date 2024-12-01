@@ -32,7 +32,15 @@ class Student(id: Int, lastName: String, firstName: String, patronymic: String) 
         patronymic: String,
         optionalFields: Map<String?, String?>
     ) : this(id, lastName, firstName, patronymic) {
-
+        optionalFields.forEach { (key: String?, value: String?) ->
+            when (key!!.lowercase(Locale.getDefault())) {
+                "phone" -> this.phone = Optional.ofNullable(value)
+                "telegram" -> this.telegram = Optional.ofNullable(value)
+                "email" -> this.email = Optional.ofNullable(value)
+                "git" -> this.git = Optional.ofNullable(value)
+                else -> throw IllegalArgumentException("Неизвестное поле: $key")
+            }
+        }
     }
 
     fun setPhone(phone: String?) {
