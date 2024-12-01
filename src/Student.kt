@@ -1,74 +1,103 @@
-import java.util.*
-
-class Student(id: Int, lastName: String, firstName: String, patronymic: String) {
-    // Геттеры
-    val id: Int
-    val lastName: String
-    val firstName: String
-    val patronymic: String
-    var phone: Optional<String> = Optional.empty()
-        private set
-    var telegram: Optional<String> = Optional.empty()
-        private set
-    var email: Optional<String> = Optional.empty()
-        private set
-    var git: Optional<String> = Optional.empty()
-        private set
-
-    // Основной конструктор с обязательными полями
-    init {
-        require(!(id <= 0 || lastName == null || firstName == null || patronymic == null)) { "ID и ФИО должны быть заданы корректно." }
-        this.id = id
-        this.lastName = lastName
-        this.firstName = firstName
-        this.patronymic = patronymic
-    }
-
-    // Вторичный конструктор с использованием HashMap
-    constructor(
-        id: Int,
-        lastName: String,
-        firstName: String,
-        patronymic: String,
-        optionalFields: Map<String?, String?>
-    ) : this(id, lastName, firstName, patronymic) {
-        optionalFields.forEach { (key: String?, value: String?) ->
-            when (key!!.lowercase(Locale.getDefault())) {
-                "phone" -> this.phone = Optional.ofNullable(value)
-                "telegram" -> this.telegram = Optional.ofNullable(value)
-                "email" -> this.email = Optional.ofNullable(value)
-                "git" -> this.git = Optional.ofNullable(value)
-                else -> throw IllegalArgumentException("Неизвестное поле: $key")
-            }
+class Student {
+    var id: Int = 0
+        get() {
+            return field
         }
+        set(value) {
+            if (value > 0)
+                field = value
+        }
+    var lastName: String = ""
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+        }
+    var firstName: String = ""
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+        }
+    var surname: String = ""
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+        }
+    var phone: String? = null
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+        }
+    var telegram: String? = null
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+        }
+    var email: String? = null
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+        }
+    var git: String? = null
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+        }
+
+    constructor(_lastName: String, _firstName: String, _surname: String) {
+        lastName = _lastName
+        firstName = _firstName
+        surname = _surname
     }
 
-    fun setPhone(phone: String?) {
-        this.phone = Optional.ofNullable(phone)
+    constructor(
+        _id: Int = 0, _lastName: String, _firstName: String, _surname: String,
+        _phone: String? = null, _telegram: String? = null, _email: String? = null, _git: String? = null
+    ) {
+        id = _id
+        lastName = _lastName
+        firstName = _firstName
+        surname = _surname
+        phone = _phone
+        telegram = _telegram
+        email = _email
+        git = _git
     }
 
-    fun setTelegram(telegram: String?) {
-        this.telegram = Optional.ofNullable(telegram)
+    constructor(infoHash: HashMap<String, Any?>) {
+        id = infoHash["id"] as Int
+        lastName = infoHash["lastName"].toString()
+        firstName = infoHash["firstName"].toString()
+        surname = infoHash["surname"].toString()
+        phone = infoHash.getOrDefault("phone", null).toString()
+        telegram = infoHash.getOrDefault("telegram", null).toString()
+        email = infoHash.getOrDefault("email", null).toString()
+        git = infoHash.getOrDefault("git", null).toString()
     }
 
-    fun setEmail(email: String?) {
-        this.email = Optional.ofNullable(email)
-    }
-
-    fun setGit(git: String?) {
-        this.git = Optional.ofNullable(git)
-    }
-
-    override fun toString(): String {
-        return "Student{" +
-                "ID=" + id +
-                ", Фамилия='" + lastName + '\'' +
-                ", Имя='" + firstName + '\'' +
-                ", Отчество='" + patronymic + '\'' +
-                ", Телефон=" + phone.orElse("не указан") +
-                ", Телеграм=" + telegram.orElse("не указан") +
-                ", Почта=" + email.orElse("не указана") +
-                ", Гит=" + git.orElse("не указан") +
-                '}'
+    fun getInfo() {
+        print("ID: $id, Фамилия: $lastName, Имя: $firstName, Отчество: $surname")
+        if (phone != null)
+            print(", Телефон: $phone")
+        if (telegram != null)
+            print(", Телеграм: $telegram")
+        if (email != null)
+            print(", Почта: $email")
+        if (git != null)
+            print(", Git: $git")
+        println()
     }
 }
