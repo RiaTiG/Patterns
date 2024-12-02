@@ -1,3 +1,6 @@
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.IOException
 class ParsingException(message: String) : Exception(message)
 class ValidationException(message: String) : Exception(message)
 
@@ -65,7 +68,26 @@ class Student: Student_super {
             if (checkGit(value))
                 field = value
         }
-
+    companion object{
+        fun read_from_txt(src: String): MutableList<Student>{
+            val filePath = File(src)
+            val list = mutableListOf<Student>()
+            print(filePath.absolutePath)
+            try {
+                val lines = filePath.readLines()
+                for (line in lines) {
+                    list.add(Student(line))
+                }
+            }
+            catch (e:FileNotFoundException){
+                println("Файл не найден")
+            }
+            catch (e:IOException){
+                println("Нельзя прочитать файл")
+            }
+            return list
+        }
+    }
     fun getInfo(): String {
         val initials = getInitials()
         val gitInfo = getGitInfo()
@@ -121,7 +143,6 @@ class Student: Student_super {
         if (parts.size > 4) git = parts[4].ifBlank { null }
 
         isValidContact()
-
     }
     // Валидация контактов для конструктора строки
     private fun isValidContact() {

@@ -1,0 +1,2 @@
+Иванов Иван Иванович;+79999999999;ivanov@example.com;@ivanov;https://github.com/ivanov
+Ганс Йохан Игаев;+79999999999;iov@example.com;@iov;https://github.com/iov
