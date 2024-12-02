@@ -1,3 +1,6 @@
+class ParsingException(message: String) : Exception(message)
+class ValidationException(message: String) : Exception(message)
+
 class Student {
 
     var id: Int = 0
@@ -72,6 +75,47 @@ class Student {
                 field = value
         }
 
+    constructor(inputString: String) {
+        val parts = inputString.split(";")
+        id = count
+        if (parts.size < 1 || parts.size > 5) {
+            throw ParsingException("Неверный формат строки: $inputString")
+        }
+
+        val nameParts = parts[0].split(" ")
+        if (nameParts.size != 3) {
+            throw ParsingException("ФИО должно содержать три слова: Фамилия Имя Отчество")
+        }
+        if (!checkFio(nameParts[0]) || !checkFio(nameParts[1]) || !checkFio(nameParts[2])) {
+            throw ValidationException("ФИО содержит недопустимые символы")
+        }
+        lastName = nameParts[0]
+        firstName = nameParts[1]
+        surname = nameParts[2]
+
+        if (parts.size > 1) phone = parts[1].ifBlank { null }
+        if (parts.size > 2) email = parts[2].ifBlank { null }
+        if (parts.size > 3) telegram = parts[3].ifBlank { null }
+        if (parts.size > 4) git = parts[4].ifBlank { null }
+
+        isValidContact()
+
+    }
+    private fun isValidContact() {
+        if (phone != null && !checkPhone(phone)) {
+            throw ValidationException("Телефонный номер некорректен: $phone")
+        }
+        if (email != null && !checkEmail(email)) {
+            throw ValidationException("Email некорректен: $email")
+        }
+        if (telegram != null && !checkTelegram(telegram)) {
+            throw ValidationException("Telegram-аккаунт некорректен: $telegram")
+        }
+        if (git != null && !checkGit(git)) {
+            throw ValidationException("GitHub URL некорректен: $git")
+        }
+    }
+
     fun set_contact(_email: String?=null, _phone: String?=null, _telegram: String?=null){
         if(checkEmail(_email))
             this.email = _email
@@ -119,7 +163,7 @@ class Student {
         }
 
         fun checkTelegram(value: String?): Boolean {
-            return if (telegramReg.matches(value.toString())) {
+            return if (value != null && telegramReg.matches(value.toString())) {
                 true
             } else {
                 if (value != null)
@@ -129,7 +173,7 @@ class Student {
         }
 
         fun checkEmail(value: String?): Boolean {
-            return if (emailReg.matches(value.toString())) {
+            return if (value != null && emailReg.matches(value.toString())) {
                 true
             } else {
                 if(value != null)
@@ -139,7 +183,7 @@ class Student {
         }
 
         fun checkGit(value: String?): Boolean {
-            return if (gitReg.matches(value.toString())) {
+            return if (value != null && gitReg.matches(value.toString())) {
                 true
             } else {
                 if (value != null)
@@ -182,7 +226,7 @@ class Student {
         git = infoHash.getOrDefault("git", null).toString()
     }
 
-    fun getInfo() {
+    fun getStudent() {
         print("Id: $id, Фамилия: $lastName, Имя: $firstName, Отчество: $surname")
         if (phone != null)
             print(", Телефон: $phone")
