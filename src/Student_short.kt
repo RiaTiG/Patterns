@@ -1,5 +1,4 @@
-class Student_short {
-    var id: Int
+class Student_short: Student_super {
     var initials: String
     var git: String
     var contact: String
