@@ -75,6 +75,37 @@ class Student {
                 field = value
         }
 
+    fun getInfo(): String {
+        val initials = getInitials()
+        val gitInfo = getGitInfo()
+        val contactInfo = getContactInfo()
+        println("$lastName $initials; $gitInfo; $contactInfo")
+        return "$lastName $initials; $gitInfo; $contactInfo"
+    }
+
+    // Получение инициалов
+    private fun getInitials(): String {
+        val firstInitial = firstName.firstOrNull() ?: '?'
+        val surnameInitial = surname.firstOrNull() ?: '?'
+        return "$firstInitial.$surnameInitial."
+    }
+
+    // Формирование информации по Git
+    private fun getGitInfo(): String {
+        return git ?: "Гитхаб не указан"
+    }
+
+    // Формирование строки для средства связи
+    private fun getContactInfo(): String {
+        return when {
+            phone != null -> "телефон: $phone"
+            email != null -> "email: $email"
+            telegram != null -> "Telegram: $telegram"
+            else -> "контакты не указаны"
+        }
+    }
+
+    //конструктор, принимающий на вход строку, парсит ее
     constructor(inputString: String) {
         val parts = inputString.split(";")
         id = count
@@ -101,6 +132,7 @@ class Student {
         isValidContact()
 
     }
+    // Валидация контактов для конструктора строки
     private fun isValidContact() {
         if (phone != null && !checkPhone(phone)) {
             throw ValidationException("Телефонный номер некорректен: $phone")
@@ -116,6 +148,7 @@ class Student {
         }
     }
 
+    //метод для установки контактов
     fun set_contact(_email: String?=null, _phone: String?=null, _telegram: String?=null){
         if(checkEmail(_email))
             this.email = _email
