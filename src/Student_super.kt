@@ -12,7 +12,7 @@ open class Student_super {
         val phoneReg = Regex("""^\+7\d{10}$|^8\d{10}$""")
         val emailReg = Regex("""^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$""")
         val nameReg = Regex("""^[А-Яа-яA-Za-z-]+$""")
-        val telegramReg = Regex("""^@[A-Za-z0-9_]{5,}$""")
+        val telegramReg = Regex("""^@[A-Za-z0-9_]{3,}$""")
         val gitReg = Regex("""^(https:\/\/|http:\/\/)?(www\.)?github\.com\/[A-Za-z0-9_.-]+\/?$""")
 
         fun checkPhone(value: String?):Boolean {
@@ -40,6 +40,7 @@ open class Student_super {
             } else {
                 if (value != null)
                     println("Неправильный формат Telegram")
+                    println(value)
                 false
             }
         }

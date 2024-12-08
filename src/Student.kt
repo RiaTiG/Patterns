@@ -68,26 +68,7 @@ class Student: Student_super {
             if (checkGit(value))
                 field = value
         }
-    companion object{
-        fun read_from_txt(src: String): MutableList<Student>{
-            val filePath = File(src)
-            val list = mutableListOf<Student>()
-            print(filePath.absolutePath)
-            try {
-                val lines = filePath.readLines()
-                for (line in lines) {
-                    list.add(Student(line))
-                }
-            }
-            catch (e:FileNotFoundException){
-                println("Файл не найден")
-            }
-            catch (e:IOException){
-                println("Нельзя прочитать файл")
-            }
-            return list
-        }
-    }
+
     fun getInfo(): String {
         val initials = getInitials()
         val gitInfo = getGitInfo()
@@ -180,11 +161,11 @@ class Student: Student_super {
         return false
     }
 
-    constructor(_lastName: String, _firstName: String, _surname: String) {
-        lastName = _lastName
-        firstName = _firstName
-        surname = _surname
-    }
+//    constructor(_lastName: String, _firstName: String, _surname: String) {
+//        lastName = _lastName
+//        firstName = _firstName
+//        surname = _surname
+//    }
 
     constructor(_lastName: String, _firstName: String, _surname: String,
                 _phone: String? = null, _telegram: String? = null, _email: String? = null, _git: String? = null
