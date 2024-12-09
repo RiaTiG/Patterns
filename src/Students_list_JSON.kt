@@ -1,17 +1,16 @@
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
-class Student_list_txt {
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+class Student_list_JSON {
     var list_data:MutableList<Student> = mutableListOf<Student>()
-
-    fun read_from_txt(src:String):MutableList<Student>{
-        val file= File(src)
-        var list= mutableListOf<Student>()
+    fun read_from_json(address:String):MutableList<Student>{
+        val listType = object : TypeToken<MutableList<Student>>() {}.type
+        var gson = Gson()
+        val file= File(address)
         try{
-            var lines=file.readLines()
-            for (line in lines){
-                list.add(Student(line))
-            }
+            list_data = gson.fromJson(address,listType) ?: mutableListOf()
         }
         catch(e: FileNotFoundException){
             println("could not find file")
@@ -19,17 +18,17 @@ class Student_list_txt {
         catch(e: IOException){
             println("could not read file")
         }
-        list_data=list
-        return list
+        return list_data
     }
-
-    fun write_to_txt(src:String,name:String,students:MutableList<Student>){
-        val file= File(src+name)
-        for(student in students) {
-            file.writeText(student.toString())
-        }
+    fun write_to_json(address:String)
+    {
+        var gson = Gson()
+        var json = gson.toJson(list_data)
+        println(list_data)
+        println(json)
+        val file = File(address)
+        file.writeText(json)
     }
-
     fun get_by_id(id:Int):Student?
     {
         for(student in list_data)
@@ -45,9 +44,9 @@ class Student_list_txt {
     fun get_k_n_student_short_list(k:Int,n:Int):Data_list<Student_short>{
         val student_list = list_data.drop((k-1)*n).take(n)
         val short_list = student_list.map{Student_short(it)}
-//        for(student in student_list){
-//            student.getInfo()
-//        }
+        for(student in student_list){
+            student.getInfo()
+        }
         return Data_list(short_list)
     }
     fun sortByName(list: MutableList<Student>) {
@@ -85,4 +84,5 @@ class Student_list_txt {
     fun get_student_short_count():Int{
         return list_data.size
     }
+
 }
