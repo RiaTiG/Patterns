@@ -1,10 +1,17 @@
-import Student_list_txt
 fun main() {
+//    val bob=Student("Smith","Bob","John", _phone = "+79891214092" )
+//    val anna=Student("Smith","Anna","Helen",_phone = "+79891214092", _git = "https://github.com/daniil")
+//    val tom=Student("Johnson","Tom","William",_phone = "+79891214092")
+    val tom=Student("Иванов Иван Иванович;+79999999999;ivanov@example.com;@ivanov;https://github.com/ivanov")
     val mem = Student_list_txt()
-    mem.read_from_txt("src/students.txt")
-
-    //mem.get_by_id(2)?.getStudent()
-    mem.get_k_n_student_short_list(2,3)
+    mem.add_student(tom)
+    mem.change_id(3,tom)
+    mem.delete_id(3)
+    println(mem.get_student_short_count())
+    mem.get_by_id(3)?.getStudent()
+//    mem.get_k_n_student_short_list(2,3)
+//    val list = mem.read_from_txt("src/students.txt")
+//    mem.sortByName(list)
 //    val sam = Student("Иванов Иван Иванович;+79999999999;ivanov@example.com;@ivanov;https://github.com/ivanov")
 //    val bob = Student("Smith", "Bob", "John", _git = "https://github.com/RiaTiG");
 //    val list: MutableList<Student> = mutableListOf(bob)

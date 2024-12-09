@@ -88,7 +88,12 @@ class Student: Student_super {
     private fun getGitInfo(): String {
         return git ?: "Гитхаб не указан"
     }
-
+    fun getFIO(): String {
+        val initials = getInitials()
+        val gitInfo = getGitInfo()
+        val contactInfo = getContactInfo()
+        return "$lastName $initials; $gitInfo; $contactInfo"
+    }
     // Формирование строки для средства связи
     private fun getContactInfo(): String {
         return when {
