@@ -41,10 +41,13 @@ class Student_list_txt {
         }
         return null
     }
+
     fun get_k_n_student_short_list(k:Int,n:Int):Data_list<Student_short>{
-        require(n*k-1 in list_data.indices)
-        val list_student = list_data.drop((k-1)*n).take(n)
-        val short_list = list_student.map{Student_short(it)}
+        val student_list = list_data.drop((k-1)*n).take(n)
+        val short_list = student_list.map{Student_short(it)}
+        for(student in student_list){
+            student.getInfo()
+        }
         return Data_list(short_list)
     }
 }

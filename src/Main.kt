@@ -4,7 +4,7 @@ fun main() {
     mem.read_from_txt("src/students.txt")
 
     //mem.get_by_id(2)?.getStudent()
-    mem.get_k_n_student_short_list(1,2)
+    mem.get_k_n_student_short_list(2,3)
 //    val sam = Student("Иванов Иван Иванович;+79999999999;ivanov@example.com;@ivanov;https://github.com/ivanov")
 //    val bob = Student("Smith", "Bob", "John", _git = "https://github.com/RiaTiG");
 //    val list: MutableList<Student> = mutableListOf(bob)
