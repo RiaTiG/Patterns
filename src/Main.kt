@@ -6,32 +6,26 @@ fun main() {
 
 
 
-    var mem=Student_list_YAML()
-    mem.read_from_yaml("src/yaml.yaml")
-    mem.add_student(tom)
-    mem.add_student(boba)
-    mem.add_student(biba)
-    mem.add_student(anna)
-    println(mem.get_student_short_count())
-    mem.write_to_yaml("src/yaml.yaml")
-
-
-
-
-
-
-
-
-
-//
-//    val mem=Student_list_JSON()
-//    mem.read_from_json("src/json.json")
+//    var mem=Student_list_YAML()
+//    mem.read_from_file("src/yaml.yaml")
 //    mem.add_student(tom)
 //    mem.add_student(boba)
 //    mem.add_student(biba)
 //    mem.add_student(anna)
 //    println(mem.get_student_short_count())
-//    mem.write_to_json("src/json.json")
+//    mem.write_to_file("src/yaml.yaml")
+
+
+
+
+//    val mem=Student_list_JSON()
+//    mem.read_from_file("src/json.json")
+//    mem.add_student(tom)
+//    mem.add_student(boba)
+//    mem.add_student(biba)
+//    mem.add_student(anna)
+//    println(mem.get_student_short_count())
+//    mem.write_to_file("src/json.json")
 //    mem.get_k_n_student_short_list(2,2)
 
 
@@ -94,13 +88,13 @@ fun main() {
 //    println(newShortList.get_data())
 
     // Получение элемента
-//    println(table.getElement(1, 1)) // "Антон"
-//    println(table.getElement(2, 0)) // 2
+//    println(table.getElement(1, 1))
+//    println(table.getElement(2, 0))
 
-    // Получение количества строк
+
 //    println("Количество строк: ${table.getRowCount()}") // 4
 //
-//    // Получение количества столбцов
+//
 //    println("Количество столбцов: ${table.getColumnCount()}") // 3
 
 //    for (student in list2) {
