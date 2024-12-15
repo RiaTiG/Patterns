@@ -1,0 +1,4 @@
+Иванов Иван Иванович;+79999999999;ivanov@example.com;@ivanov;https://github.com/ivanov
+Ганс Йохан Игаев;+79999999999;iov@example.com;@iov;https://github.com/iov
+Спиридонов Данил Игоревич;+79999999999;daniil@example.com;@daniil;https://github.com/daniil
+Мингазетдинов Равиль Рустамович;+79999999999;ravka@example.com;@ravka;https://github.com/ravka
