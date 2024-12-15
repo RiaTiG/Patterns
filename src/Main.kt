@@ -3,6 +3,9 @@ fun main() {
     val anna=Student("Ганс Йохан Игаев;+79999999999;iov@example.com;@iov;https://github.com/iov")
     val biba=Student("Спиридонов Данил Игоревич;+79999999999;daniil@example.com;@daniil;https://github.com/daniil")
     val tom=Student("Иванов Иван Иванович;+79999999999;ivanov@example.com;@ivanov;https://github.com/ivanov")
+
+
+
     var mem=Student_list_YAML()
     mem.read_from_yaml("src/yaml.yaml")
     mem.add_student(tom)
@@ -21,7 +24,7 @@ fun main() {
 
 
 //
-//    var mem=Student_list_JSON()
+//    val mem=Student_list_JSON()
 //    mem.read_from_json("src/json.json")
 //    mem.add_student(tom)
 //    mem.add_student(boba)
