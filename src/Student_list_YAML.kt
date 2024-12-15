@@ -1,35 +1,21 @@
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-class Student_list_JSON {
+class Student_list_YAML {
     var list_data:MutableList<Student> = mutableListOf<Student>()
-    fun read_from_json(address:String):MutableList<Student>{
-        val listType = object : TypeToken<MutableList<Student>>() {}.type
-        var gson = Gson()
-        val file= File(address)
-        var text:String =""
-        try{
-            text=file.readText()
-        }
-        catch(e: FileNotFoundException){
-            println("could not find file")
-        }
-        catch(e: IOException){
-            println("could not read file")
-        }
-        list_data=gson.fromJson(text, listType) ?: mutableListOf()
+    fun read_from_yaml(address:String):MutableList<Student>{
+        val yamlMapper = ObjectMapper(YAMLFactory())
+        list_data=yamlMapper.readValue(File(address),yamlMapper.typeFactory.constructCollectionType(List::class.java, Student::class.java))
         return list_data
     }
-    fun write_to_json(address:String)
+    fun write_to_yaml(address:String)
     {
-        var gson = Gson()
-        var json = gson.toJson(list_data)
-        println(list_data)
-        println(json)
         val file = File(address)
-        file.writeText(json)
+        val yamlMapper = ObjectMapper(YAMLFactory())
+        yamlMapper.writeValue(file, list_data)
     }
     fun get_by_id(id:Int):Student?
     {
@@ -86,5 +72,4 @@ class Student_list_JSON {
     fun get_student_short_count():Int{
         return list_data.size
     }
-
 }

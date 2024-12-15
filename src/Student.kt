@@ -1,12 +1,12 @@
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.IOException
+
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 class ParsingException(message: String) : Exception(message)
 class ValidationException(message: String) : Exception(message)
 
 class Student: Student_super {
 
-    var lastName: String = ""
+    @field:JsonProperty("lastName") var lastName: String = ""
         get() {
             return field
         }
@@ -15,7 +15,7 @@ class Student: Student_super {
                 field = value
         }
 
-    var firstName: String = ""
+    @field:JsonProperty("firstName") var firstName: String = ""
         get() {
             return field
         }
@@ -24,7 +24,7 @@ class Student: Student_super {
                 field = value
         }
 
-    var surname: String = ""
+    @field:JsonProperty("surname") var surname: String = ""
         get() {
             return field
         }
@@ -33,7 +33,7 @@ class Student: Student_super {
                 field = value
         }
 
-    var phone: String? = null
+    @field:JsonProperty("phone") var phone: String? = null
         get() {
             return field
         }
@@ -42,7 +42,7 @@ class Student: Student_super {
                 field = value
         }
 
-    var telegram: String? = null
+    @field:JsonProperty("telegram") var telegram: String? = null
         get() {
             return field
         }
@@ -51,7 +51,7 @@ class Student: Student_super {
                 field = value
         }
 
-    var email: String? = null
+    @field:JsonProperty("email") var email: String? = null
         get() {
             return field
         }
@@ -60,7 +60,7 @@ class Student: Student_super {
                 field = value
         }
 
-    var git: String? = null
+    @field:JsonProperty("git") var git: String? = null
         get() {
             return field
         }
@@ -69,33 +69,33 @@ class Student: Student_super {
                 field = value
         }
 
-    fun getInfo(): String {
-        val initials = getInitials()
-        val gitInfo = getGitInfo()
-        val contactInfo = getContactInfo()
+    fun GetInfo(): String {
+        val initials = GetInitials()
+        val gitInfo = GetGitInfo()
+        val contactInfo = GetContactInfo()
         println("$lastName $initials; $gitInfo; $contactInfo")
         return "$lastName $initials; $gitInfo; $contactInfo"
     }
 
     // Получение инициалов
-    private fun getInitials(): String {
+    private fun GetInitials(): String {
         val firstInitial = firstName.firstOrNull() ?: '?'
         val surnameInitial = surname.firstOrNull() ?: '?'
         return "$firstInitial.$surnameInitial."
     }
 
     // Формирование информации по Git
-    private fun getGitInfo(): String {
+    private fun GetGitInfo(): String {
         return git ?: "Гитхаб не указан"
     }
-    fun getFIO(): String {
-        val initials = getInitials()
-        val gitInfo = getGitInfo()
-        val contactInfo = getContactInfo()
+    fun GetFIO(): String {
+        val initials = GetInitials()
+        val gitInfo = GetGitInfo()
+        val contactInfo = GetContactInfo()
         return "$lastName $initials; $gitInfo; $contactInfo"
     }
     // Формирование строки для средства связи
-    private fun getContactInfo(): String {
+    private fun GetContactInfo(): String {
         return when {
             phone != null -> "телефон: $phone"
             email != null -> "email: $email"
@@ -147,7 +147,7 @@ class Student: Student_super {
     }
 
     //метод для установки контактов
-    fun set_contact(_email: String?=null, _phone: String?=null, _telegram: String?=null){
+    fun Set_contact(_email: String?=null, _phone: String?=null, _telegram: String?=null){
         if(checkEmail(_email))
             this.email = _email
         if(checkPhone(_phone))
@@ -165,7 +165,26 @@ class Student: Student_super {
             println("Валидация не пройдена")
         return false
     }
-
+    @JsonCreator
+    constructor(
+        @JsonProperty("id") _id: String = "",
+        @JsonProperty("lastName") _lastName: String = "",
+        @JsonProperty("firstName")  _firstName: String = "",
+        @JsonProperty("surname")  _surname: String = "",
+        @JsonProperty("phone")  _phone: String? = null,
+        @JsonProperty("email")  _email: String? = null,
+        @JsonProperty("telegram")  _telegram: String? = null,
+        @JsonProperty("git") _git: String? = null)
+    {
+        id=_id.toInt()
+        lastName=_lastName
+        firstName=_firstName
+        surname=_surname
+        phone=_phone
+        email=_email
+        telegram=_telegram
+        git=_git
+    }
 //    constructor(_lastName: String, _firstName: String, _surname: String) {
 //        lastName = _lastName
 //        firstName = _firstName
@@ -196,7 +215,7 @@ class Student: Student_super {
         git = infoHash.getOrDefault("git", null).toString()
     }
 
-    fun getStudent() {
+    fun GetStudent() {
         print("Id: $id, Фамилия: $lastName, Имя: $firstName, Отчество: $surname")
         if (phone != null)
             print(", Телефон: $phone")

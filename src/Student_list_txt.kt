@@ -51,7 +51,7 @@ class Student_list_txt {
         return Data_list(short_list)
     }
     fun sortByName(list: MutableList<Student>) {
-        list_data.sortBy { it.getFIO() }
+        list_data.sortBy { it.GetFIO() }
 //        for(student in list_data){
 //            student.getInfo()
 //        }

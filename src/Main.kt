@@ -1,17 +1,35 @@
 fun main() {
-
     val boba=Student("Иванов Иван Иванович;+79999999999;ivanov@example.com;@ivanov;https://github.com/ivanov")
     val anna=Student("Ганс Йохан Игаев;+79999999999;iov@example.com;@iov;https://github.com/iov")
     val biba=Student("Спиридонов Данил Игоревич;+79999999999;daniil@example.com;@daniil;https://github.com/daniil")
     val tom=Student("Иванов Иван Иванович;+79999999999;ivanov@example.com;@ivanov;https://github.com/ivanov")
-    var mem=Student_list_JSON()
+    var mem=Student_list_YAML()
+    mem.read_from_yaml("src/yaml.yaml")
     mem.add_student(tom)
     mem.add_student(boba)
     mem.add_student(biba)
     mem.add_student(anna)
     println(mem.get_student_short_count())
-    mem.write_to_json("src/json.txt")
-    mem.get_k_n_student_short_list(2,2)
+    mem.write_to_yaml("src/yaml.yaml")
+
+
+
+
+
+
+
+
+
+//
+//    var mem=Student_list_JSON()
+//    mem.read_from_json("src/json.json")
+//    mem.add_student(tom)
+//    mem.add_student(boba)
+//    mem.add_student(biba)
+//    mem.add_student(anna)
+//    println(mem.get_student_short_count())
+//    mem.write_to_json("src/json.json")
+//    mem.get_k_n_student_short_list(2,2)
 
 
 
