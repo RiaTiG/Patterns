@@ -113,7 +113,7 @@ class Student: Student_super {
 //            println("Неверный формат строки: $inputString")
 //        }
 
-        val nameParts = parts[0].split(" ")
+//        val nameParts = parts[0].split(" ")
 //        if (nameParts.size != 3) {
 ////            throw ParsingException("ФИО должно содержать три слова: Фамилия Имя Отчество")
 //            println("ФИО должно содержать три слова: Фамилия Имя Отчество")
@@ -202,8 +202,8 @@ class Student: Student_super {
         firstName = _firstName
         surname = _surname
         phone = _phone
-        telegram = _telegram
         email = _email
+        telegram = _telegram
         git = _git
     }
 
@@ -213,8 +213,8 @@ class Student: Student_super {
         firstName = infoHash["firstName"].toString()
         surname = infoHash["surname"].toString()
         phone = infoHash.getOrDefault("phone", null).toString()
-        telegram = infoHash.getOrDefault("telegram", null).toString()
         email = infoHash.getOrDefault("email", null).toString()
+        telegram = infoHash.getOrDefault("telegram", null).toString()
         git = infoHash.getOrDefault("git", null).toString()
     }
 
@@ -229,5 +229,18 @@ class Student: Student_super {
         if (git != null)
             print(", Git: $git")
         println()
+    }
+
+    override fun toString(): String {
+        var string = ("Id: $id, Фамилия: $lastName, Имя: $firstName, Отчество: $surname")
+        if (phone != null)
+            string +=(", Телефон: $phone")
+        if (telegram != null)
+            string+=(", Телеграм: $telegram")
+        if (email != null)
+            string+=(", Почта: $email")
+        if (git != null)
+            string+=(", Git: $git")
+        return string
     }
 }

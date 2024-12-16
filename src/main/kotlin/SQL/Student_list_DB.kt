@@ -1,10 +1,13 @@
 package SQL
+import Data.Data_list
 import Student.Student
+import Student.Student_short
+import Student_list_interface
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
 import java.sql.Statement
-class Student_list_DB {
+class Student_list_DB  private constructor():Student_list_interface {
     private lateinit var connection: Connection
     init {
         try {
@@ -26,7 +29,7 @@ class Student_list_DB {
             }
         }
     }
-    fun get_by_id(student_id:Int): Student? {
+    override fun get_by_id(student_id:Int): Student? {
         var input = ""
         if (connection != null) {
             val statement: Statement = connection.createStatement()
@@ -48,7 +51,7 @@ class Student_list_DB {
             return null
         }
     }
-    fun add_student(student: Student) {
+    override fun add_student(student: Student) {
         if(connection!=null){
             val statement: Statement = connection.createStatement()
             var insert="insert into student (lastName, firstName, surname, telegram, phone, email, git)" +
@@ -72,7 +75,7 @@ class Student_list_DB {
             statement.executeUpdate(insert)
         }
     }
-    fun update_student(student: Student,id:Int) {
+    override fun update_student(student: Student, id:Int) {
         if(connection!=null){
             val statement: Statement = connection.createStatement()
             var insert="Update student " +
@@ -98,13 +101,13 @@ class Student_list_DB {
             statement.executeUpdate(insert)
         }
     }
-    fun delete_student(id:Int) {
+    override fun delete_student(id:Int) {
         if(connection!=null){
             val statement: Statement = connection.createStatement()
             statement.executeUpdate("delete from student where id = ${id}")
         }
     }
-    fun get_count():Int{
+    override fun get_count():Int{
         var count=0
         if(connection!=null){
             var result:ResultSet
@@ -117,24 +120,22 @@ class Student_list_DB {
         }
         return count
     }
-    fun get_k_n_student_short_list(n:Int,k:Int):List<Student> {
-        val list= mutableListOf<Student>()
-        if(connection!=null){
-            val statement: Statement = connection.createStatement()
-            val result = statement.executeQuery("SELECT * FROM student ORDER BY id ASC LIMIT ${n} OFFSET ${(k-1)*n};")
-            if(result!=null){
-                var input=""
-                while (result.next()) {
-                    input=""
-                    for (i in 2..result.metaData.columnCount) {
-                        input+=result.getString(i)+" "
-                    }
-                    list.add(Student(input))
-                    println(input)
+    override fun get_k_n_student_short_list(k:Int,n:Int):Data_list<Student_short> {
+        val list= mutableListOf<Student_short>()
+        val statement: Statement = connection.createStatement()
+        val result = statement.executeQuery("SELECT * FROM student ORDER BY id ASC LIMIT ${n} OFFSET ${(k-1)*n};")
+        if(result!=null){
+            var input=""
+            while (result.next()) {
+                input=""
+                for (i in 2..result.metaData.columnCount) {
+                    input+=result.getString(i)+" "
                 }
-                return list
+                list.add(Student_short(Student(input)))
+                println(input)
             }
+            return Data_list(list)
         }
-        return list
+        return Data_list(list)
     }
 }

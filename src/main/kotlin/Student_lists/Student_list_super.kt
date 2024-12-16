@@ -1,4 +1,4 @@
-package Student_list
+package Student_lists
 
 import Data.Data_list
 import Student.Student
@@ -12,6 +12,7 @@ open class Student_list_super {
         {
             if(student.id==id)
             {
+                println(student)
                 return student
             }
         }
@@ -38,7 +39,7 @@ open class Student_list_super {
         list_data.add(student)
     }
 
-    fun change_id(id:Int,student: Student){
+    fun update_student(id:Int,student: Student){
         var st=get_by_id(id)
         if(st!=null){
             var i=list_data.indexOf(st)
@@ -48,7 +49,7 @@ open class Student_list_super {
             println("could not find student with id")
         }
     }
-    fun delete_id(id:Int){
+    fun delete_student(id:Int){
         var st=get_by_id(id)
         if(st!=null){
             var i=list_data.indexOf(st)
@@ -58,7 +59,8 @@ open class Student_list_super {
             println("could not find student with id")
         }
     }
-    fun get_student_short_count():Int{
+    fun get_count():Int{
+        println(list_data.size)
         return list_data.size
     }
 }

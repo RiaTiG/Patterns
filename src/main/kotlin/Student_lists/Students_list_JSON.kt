@@ -1,4 +1,4 @@
-package Student_list
+package Student_lists
 
 import Student.Student
 import java.io.File
@@ -6,7 +6,7 @@ import java.io.FileNotFoundException
 import java.io.IOException
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-class Student_list_JSON: Student_list_super(), Student_list_interface {
+class Student_list_JSON: Student_list_super(), Strategy_interface {
     override fun read_from_file(address:String):MutableList<Student>{
         val listType = object : TypeToken<MutableList<Student>>() {}.type
         var gson = Gson()
