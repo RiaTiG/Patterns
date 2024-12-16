@@ -1,6 +1,7 @@
 package Student_list
 
 import SQL.Student_list_DB
+import SQL.Student_list_DB.Companion.GetInstance
 import Student.Student
 
 fun main() {
@@ -9,12 +10,13 @@ fun main() {
 //    val biba= Student("Спиридонов Данил Игоревич;+79999999999;daniil@example.com;@daniil;https://github.com/daniil")
 //    val tom= Student("Иванов Иван Иванович;+79999999999;ivanov@example.com;@ivanov;https://github.com/ivanov")
 
-
+//
 //    var st=Student("Ivanov Iohan Igorevich;+79891214082;@ivanov;ivanov@example.com;https://github.com/ivanov")
-    var mem= Student_list_DB()
+    var mem= GetInstance()
     mem.get_k_n_student_short_list(3,2)
     mem.get_by_id(1)
     mem.get_count()
+
 
 //    val manager = Student_manager(Student_list_JSON())
 //    manager.add_student(anna)

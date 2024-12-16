@@ -17,6 +17,15 @@ class Student_list_DB {
             e.printStackTrace()
         }
     }
+    companion object {
+        @Volatile
+        private var instance: Student_list_DB? = null
+        fun GetInstance(): Student_list_DB {
+            return instance ?: synchronized(this) {
+                instance ?: Student_list_DB().also { instance = it }
+            }
+        }
+    }
     fun get_by_id(student_id:Int): Student? {
         var input = ""
         if (connection != null) {
