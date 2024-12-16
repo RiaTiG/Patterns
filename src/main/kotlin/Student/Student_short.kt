@@ -1,3 +1,5 @@
+package Student
+
 class Student_short: Student_super {
     var initials: String
     var git: String

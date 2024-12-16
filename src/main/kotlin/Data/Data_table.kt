@@ -1,3 +1,5 @@
+package Data
+
 class Data_table<T>(private val data: Array<Array<T>>) {
 
     fun getElement(row: Int, col: Int): T? {

@@ -1,4 +1,7 @@
-import Student_list_super
+package Student_list
+
+import Student.Student
+
 interface Student_list_interface {
     var list_data:MutableList<Student>
     fun write_to_file(address: String)

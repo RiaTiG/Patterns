@@ -1,3 +1,5 @@
+package Student
+
 import com.fasterxml.jackson.annotation.JsonProperty
 
 open class Student_super {

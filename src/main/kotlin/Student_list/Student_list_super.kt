@@ -1,6 +1,12 @@
+package Student_list
+
+import Data.Data_list
+import Student.Student
+import Student.Student_short
+
 open class Student_list_super {
     var list_data:MutableList<Student> = mutableListOf<Student>()
-    fun get_by_id(id:Int):Student?
+    fun get_by_id(id:Int): Student?
     {
         for(student in list_data)
         {
@@ -12,9 +18,9 @@ open class Student_list_super {
         return null
     }
 
-    fun get_k_n_student_short_list(k:Int,n:Int):Data_list<Student_short>{
+    fun get_k_n_student_short_list(k:Int,n:Int): Data_list<Student_short> {
         val student_list = list_data.drop((k-1)*n).take(n)
-        val short_list = student_list.map{Student_short(it)}
+        val short_list = student_list.map{ Student_short(it) }
 //        for(student in student_list){
 //            student.getInfo()
 //        }

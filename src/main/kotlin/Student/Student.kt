@@ -1,4 +1,4 @@
-
+package Student
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 class ParsingException(message: String) : Exception(message)
@@ -106,27 +106,30 @@ class Student: Student_super {
 
     //конструктор, принимающий на вход строку, парсит ее
     constructor(inputString: String) {
-        val parts = inputString.split(";")
+        val parts = inputString.split(" ")
         id = count
-        if (parts.size < 1 || parts.size > 5) {
-            throw ParsingException("Неверный формат строки: $inputString")
-        }
+//        if (parts.size < 1 || parts.size > 5) {
+////            throw ParsingException("Неверный формат строки: $inputString")
+//            println("Неверный формат строки: $inputString")
+//        }
 
         val nameParts = parts[0].split(" ")
-        if (nameParts.size != 3) {
-            throw ParsingException("ФИО должно содержать три слова: Фамилия Имя Отчество")
-        }
-        if (!checkFio(nameParts[0]) || !checkFio(nameParts[1]) || !checkFio(nameParts[2])) {
-            throw ValidationException("ФИО содержит недопустимые символы")
-        }
-        lastName = nameParts[0]
-        firstName = nameParts[1]
-        surname = nameParts[2]
+//        if (nameParts.size != 3) {
+////            throw ParsingException("ФИО должно содержать три слова: Фамилия Имя Отчество")
+//            println("ФИО должно содержать три слова: Фамилия Имя Отчество")
+//        }
+//        if (!checkFio(nameParts[0]) || !checkFio(nameParts[1]) || !checkFio(nameParts[2])) {
+////            throw ValidationException("ФИО содержит недопустимые символы")
+//            println("ФИО содержит недопустимые символы")
+//        }
+        lastName = parts[0]
+        firstName = parts[1]
+        surname = parts[2]
 
-        if (parts.size > 1) phone = parts[1].ifBlank { null }
-        if (parts.size > 2) email = parts[2].ifBlank { null }
-        if (parts.size > 3) telegram = parts[3].ifBlank { null }
-        if (parts.size > 4) git = parts[4].ifBlank { null }
+        if (parts.size > 3) phone = parts[3].ifBlank { null }
+        if (parts.size > 4) email = parts[4].ifBlank { null }
+        if (parts.size > 5) telegram = parts[5].ifBlank { null }
+        if (parts.size > 6) git = parts[6].ifBlank { null }
 
         isValidContact()
     }
