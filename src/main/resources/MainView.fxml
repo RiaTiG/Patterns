@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<TabPane xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml"
+         fx:controller="controller.MainController">
+
+    <!-- Первая вкладка -->
+    <Tab text="Student List">
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <!-- Расширенная область фильтрации -->
+            <GridPane hgap="5" vgap="5">
+                <!-- Фамилия -->
+                <Label text="ФИО:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="nameFilterField" promptText="Иванов И.И." GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <!-- Гит -->
+                <Label text="GIT:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <ComboBox fx:id="gitFilterBox">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Не важно"/>
+                                <String fx:value="Да"/>
+                                <String fx:value="Нет"/>
+                            </FXCollections>
+                        </items>
+                        <value>Не важно</value>
+                    </ComboBox>
+                    <TextField fx:id="gitSearchField" promptText="GIT-ссылка" disable="true"/>
+                </HBox>
+
+                <!-- Почта -->
+                <Label text="Почта:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <ComboBox fx:id="emailFilterBox">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Не важно"/>
+                                <String fx:value="Да"/>
+                                <String fx:value="Нет"/>
+                            </FXCollections>
+                        </items>
+                        <value>Не важно</value>
+                    </ComboBox>
+                    <TextField fx:id="emailSearchField" promptText="example@mail.com" disable="true"/>
+                </HBox>
+
+                <!-- Телефон -->
+                <Label text="Телефон:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <ComboBox fx:id="phoneFilterBox">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Не важно"/>
+                                <String fx:value="Да"/>
+                                <String fx:value="Нет"/>
+                            </FXCollections>
+                        </items>
+                        <value>Не важно</value>
+                    </ComboBox>
+                    <TextField fx:id="phoneSearchField" promptText="+7XXXXXXXXXX" disable="true"/>
+                </HBox>
+
+                <!-- Телеграмм -->
+                <Label text="Telegram:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <ComboBox fx:id="telegramFilterBox">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Не важно"/>
+                                <String fx:value="Да"/>
+                                <String fx:value="Нет"/>
+
+                            </FXCollections>
+                        </items>
+                        <value>Не важно</value>
+                    </ComboBox>
+                    <TextField fx:id="telegramSearchField" promptText="@username" disable="true"/>
+                </HBox>
+            </GridPane>
+
+            <!-- Таблица студентов -->
+            <TableView fx:id="studentTable" VBox.vgrow="ALWAYS" onMouseClicked="#onTableSelectionChanged">
+                <columns>
+                    <TableColumn text="Name" fx:id="nameColumn"/>
+                    <TableColumn text="GIT" fx:id="gitColumn"/>
+                    <TableColumn text="Contact" fx:id="contactColumn"/>
+                </columns>
+                <HBox spacing="10">
+                    <Button text="Add Student" onAction="#onAddStudent"/>
+                    <Button text="Remove Selected" onAction="#onRemoveStudent"/>
+                </HBox>
+            </TableView>
+
+            <!-- Панель с кнопками страницы -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Предыдущая" onAction="#onPreviousPage"/>
+                <Label text="Страница:"/>
+                <Label fx:id="currentPageLabel" text="1"/>
+                <Label text="из"/>
+                <Label fx:id="totalPagesLabel" text="1"/>
+                <Button text="Следующая" onAction="#onNextPage"/>
+            </HBox>
+
+            <!-- Область управления -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Добавить" onAction="#onAdd" fx:id="addButton"/>
+                <Button text="Изменить" onAction="#onEdit" fx:id="editButton" disable="true"/>
+                <Button text="Удалить" onAction="#onDelete" fx:id="deleteButton" disable="true"/>
+                <Button text="Обновить" onAction="#onRefresh" fx:id="refreshButton"/>
+            </HBox>
+        </VBox>
+    </Tab>
+
+    <!-- Остальные вкладки -->
+    <Tab text="Tab 2">
+        <Label text=" "/>
+    </Tab>
+    <Tab text="Tab 3">
+        <Label text=" "/>
+    </Tab>
+
+</TabPane>

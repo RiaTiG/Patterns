@@ -21,7 +21,7 @@ class Student_short: Student_super {
     // Конструктор 2: принимает ID и строку с информацией
     constructor(data: String) {
         this.id = count
-        val parts = data.split(";").map { it }
+        val parts = data.split(" ").map { it }
         this.initials = parts.getOrNull(0) ?: "Инициалов нет"
         this.git = parts.getOrNull(1) ?: "Гит не указан"
         this.contact = parts.getOrNull(2) ?: "Контакты не указаны"
