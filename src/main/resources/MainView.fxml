@@ -1,127 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<TabPane xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml"
-         fx:controller="controller.MainController">
-
+<TabPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.View">
     <!-- Первая вкладка -->
     <Tab text="Student List">
         <VBox spacing="10" style="-fx-padding: 10;">
             <!-- Расширенная область фильтрации -->
             <GridPane hgap="5" vgap="5">
                 <!-- Фамилия -->
-                <Label text="ФИО:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                <TextField fx:id="nameFilterField" promptText="Иванов И.И." GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-
+                <Label text="ФИО:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="nameFilterField" promptText="Иванов И.И." GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <!-- Гит -->
-                <Label text="GIT:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <Label text="GIT:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <ComboBox fx:id="gitFilterBox">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Не важно"/>
-                                <String fx:value="Да"/>
-                                <String fx:value="Нет"/>
+                                <String fx:value="Не важно" />
+                                <String fx:value="Да" />
+                                <String fx:value="Нет" />
                             </FXCollections>
                         </items>
                         <value>Не важно</value>
                     </ComboBox>
-                    <TextField fx:id="gitSearchField" promptText="GIT-ссылка" disable="true"/>
+                    <TextField fx:id="gitSearchField" disable="true" promptText="GIT-ссылка" />
                 </HBox>
-
                 <!-- Почта -->
-                <Label text="Почта:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <Label text="Почта:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                 <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <ComboBox fx:id="emailFilterBox">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Не важно"/>
-                                <String fx:value="Да"/>
-                                <String fx:value="Нет"/>
+                                <String fx:value="Не важно" />
+                                <String fx:value="Да" />
+                                <String fx:value="Нет" />
                             </FXCollections>
                         </items>
                         <value>Не важно</value>
                     </ComboBox>
-                    <TextField fx:id="emailSearchField" promptText="example@mail.com" disable="true"/>
+                    <TextField fx:id="emailSearchField" disable="true" promptText="example@mail.com" />
                 </HBox>
-
                 <!-- Телефон -->
-                <Label text="Телефон:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <Label text="Телефон:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                 <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <ComboBox fx:id="phoneFilterBox">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Не важно"/>
-                                <String fx:value="Да"/>
-                                <String fx:value="Нет"/>
+                                <String fx:value="Не важно" />
+                                <String fx:value="Да" />
+                                <String fx:value="Нет" />
                             </FXCollections>
                         </items>
                         <value>Не важно</value>
                     </ComboBox>
-                    <TextField fx:id="phoneSearchField" promptText="+7XXXXXXXXXX" disable="true"/>
+                    <TextField fx:id="phoneSearchField" disable="true" promptText="+7XXXXXXXXXX" />
                 </HBox>
-
                 <!-- Телеграмм -->
-                <Label text="Telegram:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <Label text="Telegram:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                 <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <ComboBox fx:id="telegramFilterBox">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Не важно"/>
-                                <String fx:value="Да"/>
-                                <String fx:value="Нет"/>
-
+                                <String fx:value="Не важно" />
+                                <String fx:value="Да" />
+                                <String fx:value="Нет" />
                             </FXCollections>
                         </items>
                         <value>Не важно</value>
                     </ComboBox>
-                    <TextField fx:id="telegramSearchField" promptText="@username" disable="true"/>
+                    <TextField fx:id="telegramSearchField" disable="true" promptText="@username" />
                 </HBox>
+            <columnConstraints>
+               <ColumnConstraints />
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
-
             <!-- Таблица студентов -->
-            <TableView fx:id="studentTable" VBox.vgrow="ALWAYS" onMouseClicked="#onTableSelectionChanged">
+            <TableView fx:id="studentTable" onMouseClicked="#onTableSelectionChanged" VBox.vgrow="ALWAYS">
                 <columns>
-                    <TableColumn text="Name" fx:id="nameColumn"/>
-                    <TableColumn text="GIT" fx:id="gitColumn"/>
-                    <TableColumn text="Contact" fx:id="contactColumn"/>
+                    <TableColumn fx:id="nameColumn" text="Name" />
+                    <TableColumn fx:id="gitColumn" text="GIT" />
+                    <TableColumn fx:id="contactColumn" text="Contact" />
                 </columns>
                 <HBox spacing="10">
-                    <Button text="Add Student" onAction="#onAddStudent"/>
-                    <Button text="Remove Selected" onAction="#onRemoveStudent"/>
+                    <Button onAction="#onAddStudent" text="Add Student" />
+                    <Button onAction="#onRemoveStudent" text="Remove Selected" />
                 </HBox>
             </TableView>
-
             <!-- Панель с кнопками страницы -->
-            <HBox spacing="10" alignment="CENTER">
-                <Button text="Предыдущая" onAction="#onPreviousPage"/>
-                <Label text="Страница:"/>
-                <Label fx:id="currentPageLabel" text="1"/>
-                <Label text="из"/>
-                <Label fx:id="totalPagesLabel" text="1"/>
-                <Button text="Следующая" onAction="#onNextPage"/>
+            <HBox alignment="CENTER" spacing="10">
+                <Button onAction="#onPreviousPage" text="Предыдущая" />
+                <Label text="Страница:" />
+                <Label fx:id="currentPageLabel" text="1" />
+                <Label text="из" />
+                <Label fx:id="totalPagesLabel" text="1" />
+                <Button onAction="#onNextPage" text="Следующая" />
             </HBox>
-
             <!-- Область управления -->
-            <HBox spacing="10" alignment="CENTER">
-                <Button text="Добавить" onAction="#onAdd" fx:id="addButton"/>
-                <Button text="Изменить" onAction="#onEdit" fx:id="editButton" disable="true"/>
-                <Button text="Удалить" onAction="#onDelete" fx:id="deleteButton" disable="true"/>
-                <Button text="Обновить" onAction="#onRefresh" fx:id="refreshButton"/>
+            <HBox alignment="CENTER" spacing="10">
+                <Button fx:id="addButton" onAction="#onAdd" text="Добавить" />
+                <Button fx:id="editButton" disable="true" onAction="#onEdit" text="Изменить" />
+                <Button fx:id="deleteButton" disable="true" onAction="#onDelete" text="Удалить" />
+                <Button fx:id="refreshButton" onAction="#onRefresh" text="Обновить" />
             </HBox>
         </VBox>
     </Tab>
-
     <!-- Остальные вкладки -->
     <Tab text="Tab 2">
-        <Label text=" "/>
+        <Label text=" " />
     </Tab>
     <Tab text="Tab 3">
-        <Label text=" "/>
+        <Label text=" " />
     </Tab>
-
 </TabPane>

@@ -6,8 +6,7 @@ import javafx.collections.ObservableList
 import javafx.fxml.FXML
 import javafx.scene.control.*
 import javafx.scene.input.KeyEvent
-
-class MainController {
+class View {
     @FXML
     private lateinit var addButton: Button
     @FXML
@@ -16,35 +15,28 @@ class MainController {
     private lateinit var deleteButton: Button
     @FXML
     private lateinit var refreshButton: Button
-
     @FXML
     private lateinit var currentPageLabel: Label
     @FXML
     private lateinit var totalPagesLabel: Label
-
     @FXML
     private lateinit var nameFilterField: TextField
-
     @FXML
     private lateinit var gitFilterBox: ComboBox<String>
     @FXML
     private lateinit var gitSearchField: TextField
-
     @FXML
     private lateinit var emailFilterBox: ComboBox<String>
     @FXML
     private lateinit var emailSearchField: TextField
-
     @FXML
     private lateinit var phoneFilterBox: ComboBox<String>
     @FXML
     private lateinit var phoneSearchField: TextField
-
     @FXML
     private lateinit var telegramFilterBox: ComboBox<String>
     @FXML
     private lateinit var telegramSearchField: TextField
-
     @FXML
     private lateinit var studentTable: TableView<Student>
     @FXML
@@ -53,7 +45,6 @@ class MainController {
     private lateinit var gitColumn: TableColumn<Student, String>
     @FXML
     lateinit var contactColumn: TableColumn<Student, String>
-
     private val students: ObservableList<Student> = FXCollections.observableArrayList(
         Student("John Doe", "github.com/johndoe", "john@example.com"),
         Student("Jane Smith", "github.com/johndoe","94949494949" ),
@@ -61,18 +52,13 @@ class MainController {
     )
 
     private val filteredStudents: ObservableList<Student> = FXCollections.observableArrayList(students)
-
     @FXML
     fun initialize() {
         // Инициализация колонок
         nameColumn.setCellValueFactory { SimpleStringProperty(it.value.name) }
         gitColumn.setCellValueFactory { SimpleStringProperty(it.value.git) }
         contactColumn.setCellValueFactory { SimpleStringProperty(it.value.contact) }
-
-
         studentTable.items = filteredStudents
-
-
         setupFilterBoxListeners()
     }
     private val pageSize = 20
@@ -82,10 +68,8 @@ class MainController {
         setupBoxWithField(emailFilterBox, emailSearchField)
         setupBoxWithField(phoneFilterBox, phoneSearchField)
         setupBoxWithField(telegramFilterBox, telegramSearchField)
-
         nameFilterField.setOnKeyReleased { applyFilters() }
     }
-
     private fun setupBoxWithField(box: ComboBox<String>, field: TextField) {
         box.valueProperty().addListener { _, _, newValue ->
             field.isDisable = newValue != "Да"
@@ -93,7 +77,6 @@ class MainController {
         }
         field.setOnKeyReleased { applyFilters() }
     }
-
     private fun applyFilters() {
         filteredStudents.setAll(students.filter { student ->
             val nameMatches = student.name.contains(nameFilterField.text, ignoreCase = true)
@@ -101,7 +84,6 @@ class MainController {
             val emailMatches = matchesFilter(student.contact, emailFilterBox.value, emailSearchField.text)
             val phoneMatches = matchesFilter(student.contact, phoneFilterBox.value, phoneSearchField.text)
             val telegramMatches = matchesFilter(student.contact, telegramFilterBox.value, telegramSearchField.text)
-
             nameMatches && gitMatches && emailMatches && phoneMatches && telegramMatches
         })
     }
@@ -115,7 +97,6 @@ class MainController {
         }
     }
 
-
     @FXML
     private fun onPreviousPage() {
         if (currentPage > 0) {
@@ -123,7 +104,6 @@ class MainController {
             updateTableData()
         }
     }
-
     @FXML
     private fun onNextPage() {
         val totalPages = getTotalPages()
@@ -137,18 +117,16 @@ class MainController {
         val startIndex = currentPage * pageSize
         val endIndex = startIndex + pageSize
         val pageData = students.subList(startIndex, endIndex.coerceAtMost(students.size))
-
         studentTable.items = FXCollections.observableArrayList(pageData)
         currentPageLabel.text = (currentPage + 1).toString()
         totalPagesLabel.text = getTotalPages().toString()
     }
+
     private fun setupButtonState() {
         val selectedItems = studentTable.selectionModel.selectedItems
         val selectedCount = selectedItems.size
-
         addButton.isDisable = false
         refreshButton.isDisable = false
-
         when {
             selectedCount == 0 -> {
                 editButton.isDisable = true
@@ -164,6 +142,7 @@ class MainController {
             }
         }
     }
+
     private fun getTotalPages(): Int {
         return if (students.size % pageSize == 0) {
             students.size / pageSize
@@ -209,14 +188,11 @@ class MainController {
 
     @FXML
     private fun onAddStudent() { /* Добавить реализацию */ }
-
     @FXML
     private fun onRemoveStudent() { /* Добавить реализацию */ }
 }
-
 data class Student(
     val name: String,
     val git: String = "",
     var contact: String = "",
-
-    )
+)
